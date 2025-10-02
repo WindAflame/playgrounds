@@ -1,0 +1,14 @@
+<h2><strong>Posts</strong></h2>
+<hr/>
+
+<div class="alert alert-info" role="alert" *ngIf="posts.length == 0">
+  <strong>Information !</strong> Aucun post n'a été trouvé.
+</div>
+
+<ul class="col-xs-12 col-sm-12 col-md-12 col-lg-12 list-group">
+  
+  <post-list-item 
+  *ngFor="let post of posts; let i = index" 
+  [post]='post' [indexPost]="i"></post-list-item >
+
+</ul>
