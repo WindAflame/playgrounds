@@ -1,0 +1,22 @@
+<h3>Example textarea with Angular + Angular Material</h3>
+<form [formGroup]="exampleForm" (submit)="doNothing()">
+
+	<mat-form-field class="example-full-width">
+		<textarea matInput placeholder="Disable from component (Best way)" formControlName="text1"></textarea>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Disable from template with directive" formControlName="text2" [readonly]='true'></textarea>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Disable from template with custom directive" formControlName="text3" [disableControl]="true"></textarea>
+  </mat-form-field>
+  <br>
+  <fieldset [disabled]="true">
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Disable from template with fieldset" formControlName="text4"></textarea>
+  </mat-form-field>
+  </fieldset>
+
+</form>
