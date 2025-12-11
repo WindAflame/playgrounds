@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles */
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Fix Angular Material form fields with Tailwind */
+.mat-mdc-form-field {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  vertical-align: top !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  padding-bottom: 1em !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  box-sizing: border-box !important;
+}
+
+/* Fix Material input baseline */
+.mat-mdc-form-field-infix {
+  min-height: auto !important;
+}
+
+/* Fix menu panel */
+.mat-mdc-menu-panel {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Checkbox in menu styles */
+.mat-mdc-menu-content .mat-mdc-checkbox {
+  width: 100%;
+}
+
+.mat-mdc-menu-content > button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.mat-mdc-menu-content > button:focus {
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.04);
+}
