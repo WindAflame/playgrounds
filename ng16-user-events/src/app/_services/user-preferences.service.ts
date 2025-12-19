@@ -29,18 +29,16 @@ export class UserPreferencesService {
    */
   initialize(userId: string): Observable<UserPreferences> {
     // Charger depuis localStorage
-    const savedPrefs = this.loadFromLocalStorage(userId);
+    let prefs = this.loadFromLocalStorage(userId);
 
-    if (savedPrefs) {
-      this.preferencesSubject.next(savedPrefs);
-      return of(savedPrefs);
-    } else {
+    if (!prefs) {
       // Retourner des préférences par défaut si aucune n'existe
-      const defaultPrefs = this.getDefaultPreferences(userId);
-      this.preferencesSubject.next(defaultPrefs);
-      this.saveToLocalStorage();
-      return of(defaultPrefs);
+      prefs = this.getDefaultPreferences(userId);
+      this.saveToLocalStorage(prefs);
     }
+    
+      this.preferencesSubject.next(prefs);
+      return of(prefs);
   }
 
   /**
@@ -123,8 +121,8 @@ export class UserPreferencesService {
   /**
    * Sauvegarde les modifications dans localStorage
    */
-  private saveToLocalStorage(): void {
-    const currentPrefs = this.preferencesSubject.value;
+  private saveToLocalStorage(prefs?: UserPreferences | null): void {
+    const currentPrefs = prefs ?? this.preferencesSubject.value;
     if (!currentPrefs) return;
 
     try {

@@ -7,7 +7,7 @@
     <div class="flex-shrink-0">
       <button mat-button [matMenuTriggerFor]="columnMenu" class="flex items-center">
         <mat-icon>view_column</mat-icon>
-        Colonnes
+        Columns
       </button>
       <mat-menu #columnMenu="matMenu">
         <button
@@ -43,7 +43,7 @@
     </div>
 
     <!-- Reset Button -->
-    <button mat-icon-button (click)="resetPreferences()" matTooltip="Réinitialiser les préférences" class="ml-auto">
+    <button mat-icon-button (click)="resetPreferences()" matTooltip="Reset preferences" class="ml-auto">
       <mat-icon>refresh</mat-icon>
     </button>
   </div>
@@ -51,13 +51,13 @@
   <!-- Search Container -->
   <div class="mb-4 animate-fadeIn">
     <mat-form-field *ngIf="searchMode === 'filter'" appearance="outline" class="w-full">
-      <mat-label>Rechercher</mat-label>
+      <mat-label>Search</mat-label>
       <input matInput placeholder="Filtrer les résultats..." [(ngModel)]="searchText" (ngModelChange)="applyFilter()">
       <mat-icon matPrefix>search</mat-icon>
     </mat-form-field>
 
     <mat-form-field *ngIf="searchMode === 'lucene'" appearance="outline" class="w-full">
-      <mat-label>Requête Lucene</mat-label>
+      <mat-label>Lucene</mat-label>
       <input matInput placeholder="Ex: name:John AND status:active" [(ngModel)]="searchText" (ngModelChange)="applyFilter()">
       <mat-icon matPrefix>code</mat-icon>
       <mat-hint>Syntaxe Lucene: field:value, AND, OR, NOT</mat-hint>
@@ -103,7 +103,7 @@
       <!-- No Data Message -->
       <tr class="h-24" *matNoDataRow>
         <td [attr.colspan]="displayedColumns.length" class="text-center py-10 text-gray-500 italic">
-          Aucune donnée disponible
+          No data available
         </td>
       </tr>
     </table>

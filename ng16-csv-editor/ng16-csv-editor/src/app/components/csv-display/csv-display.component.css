@@ -1,0 +1,71 @@
+.csv-display {
+  margin-top: 30px;
+}
+
+.display-header {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.display-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5em;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-section label {
+  font-weight: 600;
+  color: #333;
+}
+
+.display-select {
+  padding: 8px 15px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.display-select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.display-select:hover {
+  border-color: #667eea;
+}
+
+.display-content {
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .display-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-section {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .display-select {
+    width: 100%;
+  }
+}

@@ -1,0 +1,10 @@
+<div class="spreadsheet-display">
+  <h3>AG Grid View ({{ rows.length }} row{{ rows.length > 1 ? 's' : '' }})</h3>
+
+  <div class="spreadsheet-container">
+    <ag-grid-angular
+        class="ag-theme-material"
+        [rowData]="rows"
+        [columnDefs]="columns" />
+  </div>
+</div>

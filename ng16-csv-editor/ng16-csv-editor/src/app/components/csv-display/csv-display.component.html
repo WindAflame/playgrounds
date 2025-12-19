@@ -1,0 +1,41 @@
+<div class="csv-display" *ngIf="csvData">
+  <div class="display-header">
+    <h2>Data Display</h2>
+
+    <div class="filter-section">
+      <label for="displayMode">Display mode:</label>
+      <select
+        id="displayMode"
+        [(ngModel)]="displayMode"
+        class="display-select"
+      >
+        <option *ngFor="let option of displayModeOptions" [value]="option.value" >{{ option.label }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="display-content">
+    <app-csv-raw-display
+      *ngIf="displayMode === 'raw'"
+      [rawContent]="csvData.rawContent"
+    ></app-csv-raw-display>
+
+    <app-csv-parsed-display
+      *ngIf="displayMode === 'parsed'"
+      [headers]="csvData.headers"
+      [rows]="csvData.rows"
+    ></app-csv-parsed-display>
+
+    <app-csv-spreadsheet-display
+      *ngIf="displayMode === 'spreadsheet'"
+      [headers]="csvData.headers"
+      [rows]="csvData.rows"
+    ></app-csv-spreadsheet-display>
+
+    <app-csv-aggrid-display
+      *ngIf="displayMode === 'ag-grid-ce'"
+      [headers]="csvData.headers"
+      [rows]="csvData.rows"
+    ></app-csv-aggrid-display>
+  </div>
+</div>

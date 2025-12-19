@@ -1,7 +1,6 @@
-// data-table.component.ts
 import { Component, OnInit, OnDestroy, ViewChild, inject } from '@angular/core';
 import { MatTable, MatTableModule } from '@angular/material/table';
-import { Subject, takeUntil } from 'rxjs';
+import { first, Subject, takeUntil } from 'rxjs';
 import { UserPreferencesService } from '../_services/user-preferences.service';
 import { SearchMode, TableColumn } from '../_models/user-preferences.model';
 import { CommonModule } from '@angular/common';
@@ -41,7 +40,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './data-table.component.html'
 })
 export class DataTableComponent implements OnInit, OnDestroy {
-  // Inject dependencies using the modern inject() function
+  // Injection des dépendances
   private readonly preferencesService = inject(UserPreferencesService);
 
   @ViewChild(MatTable) table!: MatTable<any>;
@@ -91,17 +90,17 @@ export class DataTableComponent implements OnInit, OnDestroy {
     const userId = this.getCurrentUserId();
 
     this.preferencesService.initialize(userId)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(first())
       .subscribe(preferences => {
         if (preferences?.tablePreferences) {
           const savedColumns = preferences.tablePreferences.columns;
 
-          // Merge saved preferences with component's column definitions
+          // Fusionner les préférences sauvegardées avec les définitions de colonnes du composant
           this.mergeColumnPreferences(savedColumns);
           this.searchMode = preferences.tablePreferences.searchMode;
           this.updateDisplayedColumns();
 
-          // If preferences were empty (first load), save the merged columns
+          // Si les préférences étaient vides (premier chargement), sauvegarder les colonnes fusionnées
           if (!savedColumns || savedColumns.length === 0) {
             this.preferencesService.updateColumns(this.allColumns);
           }
@@ -172,7 +171,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Toggle column visibility (used by menu click)
+   * Permet de basculer la visibilité d'une colonne (par action utilisateur)
    */
   toggleColumnVisibility(columnId: string): void {
     const column = this.allColumns.find(col => col.id === columnId);
@@ -229,11 +228,11 @@ export class DataTableComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Apply filter to the data
+   * Applique le filtre de recherche
    */
   applyFilter(): void {
     if (!this.searchText || this.searchText.trim() === '') {
-      // No search text, show all data
+      // Pas de texte de recherche, afficher toutes les données
       this.filteredDataSource = [...this.dataSource];
       return;
     }
@@ -241,9 +240,9 @@ export class DataTableComponent implements OnInit, OnDestroy {
     const searchLower = this.searchText.toLowerCase().trim();
 
     if (this.searchMode === SearchMode.FILTER) {
-      // Simple filter: search across all visible columns
+      // Filtre simple : recherche dans toutes les colonnes
       this.filteredDataSource = this.dataSource.filter(item => {
-        // Search in all columns
+        // Recherche dans toutes les propriétés de l'objet
         return Object.keys(item).some(key => {
           const value = item[key];
           if (value) {
@@ -253,8 +252,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
         });
       });
     } else {
-      // Lucene mode - for now, just use the same simple filter
-      // In production, you would parse the Lucene query and apply it
+      // FIXME: Lucene mode - Mock avec même comportement que FILTER
       this.filteredDataSource = this.dataSource.filter(item => {
         return Object.keys(item).some(key => {
           const value = item[key];

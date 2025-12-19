@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* jsuites styles (required by jspreadsheet v5) */
+@import 'jsuites/dist/jsuites.css';
+
+/* jspreadsheet-ce styles */
+@import 'jspreadsheet-ce/dist/jspreadsheet.css';
+@import 'jspreadsheet-ce/dist/jspreadsheet.themes.css';
+
+/* AG Grid styles */
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-material.css';

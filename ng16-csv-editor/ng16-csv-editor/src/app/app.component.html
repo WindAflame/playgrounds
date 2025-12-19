@@ -1,0 +1,21 @@
+<div class="container">
+  <header>
+    <h1>{{ title }}</h1>
+    <p>Upload a CSV file to view its content</p>
+  </header>
+
+  <app-file-upload-form
+    (csvLoaded)="onCsvLoaded($event)"
+    (errorOccurred)="onError($event)"
+  ></app-file-upload-form>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <div *ngIf="csvData" class="success-message">
+    <p>CSV file loaded successfully - {{ csvData.rows.length }} row{{ csvData.rows.length > 1 ? 's' : '' }} detected</p>
+  </div>
+
+  <app-csv-display [csvData]="csvData"></app-csv-display>
+</div>
