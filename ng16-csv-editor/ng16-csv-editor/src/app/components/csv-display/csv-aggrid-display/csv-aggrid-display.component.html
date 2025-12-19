@@ -1,10 +1,39 @@
 <div class="spreadsheet-display">
   <h3>AG Grid View ({{ rows.length }} row{{ rows.length > 1 ? 's' : '' }})</h3>
 
+  <div class="toolbar">
+    <!-- Gestion des lignes -->
+    <div class="toolbar-section">
+      <button (click)="addRow()" class="btn">➕ Ajouter ligne</button>
+      <button (click)="deleteSelectedRows()" class="btn btn-danger">🗑️ Supprimer lignes sélectionnées</button>
+    </div>
+
+    <!-- Gestion des colonnes -->
+    <div class="toolbar-section">
+      <input
+        type="text"
+        [(ngModel)]="newColumnName"
+        placeholder="Nom de la nouvelle colonne"
+        class="input-column"
+        (keyup.enter)="addColumn()" />
+      <button (click)="addColumn()" class="btn">➕ Ajouter colonne</button>
+
+      <select class="select-column" #columnSelect>
+        <option value="">Sélectionner une colonne à supprimer</option>
+        <option *ngFor="let header of headers" [value]="header">{{ header }}</option>
+      </select>
+      <button (click)="deleteColumn(columnSelect.value)" class="btn btn-danger">🗑️ Supprimer colonne</button>
+    </div>
+  </div>
+
   <div class="spreadsheet-container">
     <ag-grid-angular
         class="ag-theme-material"
         [rowData]="rows"
-        [columnDefs]="columns" />
+        [columnDefs]="columns"
+        [defaultColDef]="defaultColDef"
+        [rowSelection]="'multiple'"
+        [animateRows]="true"
+        (gridReady)="onGridReady($event)" />
   </div>
 </div>
